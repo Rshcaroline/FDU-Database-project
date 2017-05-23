@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>新闻速递</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    {%load staticfiles%}
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="{%static "news_inside/css/bootstrap.min.css"%}">
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="{%static "news_inside/css/font-awesome/css/font-awesome.min.css"%}">
+
+    <!-- Google Webfonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
+
+    <!-- Styles -->
+   <link rel="stylesheet" href="{%static "news_inside/css/style.css"%}" id="theme-styles">
+
+    <!--[if lt IE 9]>
+        <script src="js/vendor/google/html5-3.6-respond-1.1.0.min.js"></script>
+    <![endif]-->
+
+
+</head>
+<body>
+    <header>
+        <div class="widewrapper masthead">
+            <div class="container">
+                <a href="#" id="logo">
+                    <img src="{%static "news_inside/img/logo.png"%}" alt="clean Blog">
+                </a>
+
+                <div id="mobile-nav-toggle" class="pull-right">
+                    <a href="#" data-toggle="collapse" data-target=".clean-nav .navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+
+                <nav class="pull-right clean-nav">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav nav-pills navbar-nav">
+
+                             <li>
+                                <a href="http://127.0.0.1:8000/register/index">Home</a>
+                            </li>
+                            <li>
+                                <a href="contact.html">Contact</a>
+                            </li>
+                            <li>
+                                <a href="http://127.0.0.1:8000/register/">Log out</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <div class="widewrapper subheader">
+            <div class="container">
+                <div class="clean-breadcrumb">
+                    <a href="#">Blog</a>
+                </div>
+
+                <div class="clean-searchbox">
+                    <form action="#" method="get" accept-charset="utf-8">
+                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+                        <button class="searchbutton" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 blog-main">
+                        {% for news in news %}
+                        <div class="">
+                            <article class=" blog-teaser">
+                                <header>
+                                    <img id = "news-img{{news.id}}" src="{%static 'news_inside/img/'%}" alt="">
+                                    <script>
+                                        document.getElementById("news-img{{news.id}}").src+={{ news.id }}+'.jpg'
+                                    </script>
+                                    <div class="news">
+                                        <div class="title">
+                                            <h3><a href="{% url 'news:news_get_detail' news.id %}"><h4>{{ news.title }}</h4></a></h3>
+                                        </div>
+                                        <div class="info">
+                                            <span class="category" style="color: #ff9900;">{{ news.category.name }}</span>
+                                            <span class="created" style="color: #6aa84f">{{ news.created|date:"Y-m-d H:i" }}</span>
+                                        </div>
+                                        <div class="summary">
+                                            {{ news.content|slice:"40" }} ...
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </header>
+                            </article>
+                        </div>
+                        {% endfor %}
+
+                    <div class="paging">
+                        <a href="#" class="older">Older Post</i></a>
+                    </div>
+                </div>
+                <aside class="col-md-4 blog-aside">
+
+                    <div class="aside-widget">
+                        <header>
+                            <h3>Categorys</h3>
+                        </header>
+                        <div class="body clearfix">
+                            <ul class="tags">
+                                {% for category in category %}
+                                    <li><a href="#">{{ category.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="aside-widget">
+                        <header>
+                            <h3>Tags</h3>
+                        </header>
+                        <div class="body clearfix">
+                            <ul class="tags">
+                                {% for tags in tags %}
+                                    <li><a href="#">{{ tags.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+  <footer>
+        <div class="widewrapper footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 footer-widget">
+                        <h3> <i class="fa fa-user"></i>About</h3>
+
+                        <p>© 2017 复旦大学计算机科学技术学院</p>
+                        <p>地址：上海市张衡路825号</p>
+                    </div>
+
+                    <div class="col-md-4 footer-widget">
+                        <h3> <i class="fa fa-pencil"></i>Categorys</h3>
+                        <div class="body clearfix">
+                            <ul class="tags">
+                                {% for category in category %}
+                                    <li><a href="#">{{ category.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 footer-widget">
+                        <h3> <i class="fa fa-envelope"></i> Get In Touch</h3>
+
+                        <p>Tell：+86-21-51355555</p>
+                        <p>Fax：+86-21-51355558</p>
+                        <p>Emall：cs_school@fudan.edu.cn</p>
+                         <div class="footer-widget-icon">
+                            <i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-google"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="widewrapper copyright">
+                2017 复旦大学计算机学院团学联青志实践中心 All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.js"></script>
+<script>
+
+</script>
+
+</body>
+</html>

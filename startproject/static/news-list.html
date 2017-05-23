@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My News</title>
+    <style>
+        .blog {
+            padding: 20px 0px;
+        }
+        .blog .info span {
+            padding-right: 10px;
+        }
+        .blog .summary {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>My News</h1>
+</div>
+
+{% for news in news %}
+    <div class="news">
+        <div class="title">
+            <a href="{% url 'news:news_get_detail' news.id %}"><h2>{{ news.title }}</h2></a>
+        </div>
+        <div class="info">
+            <span class="category" style="color: #ff9900;">{{ news.category.name }}</span>
+            <span class="author" style="color: #4a86e8">{{ news.author }}</span>
+            <span class="created" style="color: #6aa84f">{{ news.created|date:"Y-m-d H:i" }}</span>
+        </div>
+        <div class="summary">
+            {{ news.content|truncatewords:100 }}
+        </div>
+    </div>
+{% endfor %}
+
+</body>
+</html>
