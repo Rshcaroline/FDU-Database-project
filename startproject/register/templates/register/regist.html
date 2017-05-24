@@ -105,7 +105,21 @@
 												<div class="col-md-12">
 												<form method = 'post' enctype="multipart/form-data">
                                                     {% csrf_token %}
-                                                    {{uf.as_p}}
+													{% for field in uf %}
+													<div class="input-field" style="padding-top: 10px ">
+														{{ field.label }}:
+													</div>
+													<p> </p>
+													<div>
+														{{ field }}
+													</div>
+													<div class="error" style="color: red;">
+														{{ field.errors }}
+													</div>
+													{% endfor %}
+													<p> </p>
+													<p> </p>
+
                                                     <input type="submit" class="btn btn-primary btn-block" value = "Ok" />
                                                 </form>
 												<br>

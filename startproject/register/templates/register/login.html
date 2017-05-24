@@ -102,28 +102,14 @@
 										<div class="tab-content-inner active" data-content="signup">
 											<h3 class="cursive-font">Sign in</h3>
 											<div class="row form-group">
-												<div class="col-md-12">
+												<div class="col-md-11">
 												<form method = 'post' enctype="multipart/form-data" >
     												{% csrf_token %}
 													<!--{{uf.as_p}}
 													<p>{{ uf.username.label }}: {{ uf.username }}<span>{{ uf.username.errors }}</span></p>
 													<p>{{ uf.password.label }}: {{ uf.password }}<span>{{ uf.password.errors }}</span></p>
 													-->
-													{% for field in uf %}
-													<div class="input-field" style="padding-top: 10px">
-														{{ field.label }}:
-													</div>
-													<p> </p>
-													<div>
-														{{ field }}
-													</div>
-													<div class="error" style="color: red;">
-														{{ field.errors }}
-													</div>
-													{% endfor %}
-													<p> </p>
-													<p> </p>
-
+													{{uf.as_p}}
 													<input type="submit" class="btn btn-primary btn-block" value = "Log in" />
 												</form>
 												<br>
